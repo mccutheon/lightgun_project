@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QPainter
 import serial
 import time
+from random import randint
 
 import serial.tools.list_ports
 
@@ -24,8 +25,6 @@ class Ui_MainWindow(object):
         MainWindow.resize(1023, 768)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-
-        self.is_drawing = False
 
         self.detectGun = QtWidgets.QPushButton(self.centralwidget)
         self.detectGun.setGeometry(QtCore.QRect(5, 5, 130, 25))
@@ -53,7 +52,7 @@ class Ui_MainWindow(object):
         self.testCam.setGeometry(QtCore.QRect(5, 125, 130, 25))
         self.testCam.setObjectName("testCam")
 
-        self.testCam.clicked.connect(self.test_cam)
+        self.testCam.clicked.connect(self.test_cam2)
 
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -133,6 +132,47 @@ class Ui_MainWindow(object):
                 i = i + 1
 
         print("camera test done")
+
+
+    def test_cam2(self, MainWindow):
+
+        #ser = serial.Serial(self.listGun.currentText(), 115200)
+        camStr = "cam"
+        i = 0
+
+        #if ser.isOpen():
+
+        while (i < 10):
+                #ser.write(camStr.encode('ascii')) #send the string 'cam' to arduino to ge>
+                #line = ser.readline().decode('utf-8').rstrip() #receive bytes to end of l>
+                #my_list = line.split(",") #split byte data based on comma, and put into l>
+                #res = [eval(i) for i in my_list] #turn bytes into int
+                #print(my_list)
+            test_list = [randint(300,500),300,randint(300,500),300,randint(300,500),600,randint(300,500),600,randint(300,500),300,randint(300,500),500] #test list >
+
+            print(test_list)
+                #print(test_list[5])
+
+                #draw 6 circles
+
+                #drawEllipse(test_list[0],test_list[1],35,35)
+                #drawEllipse(test_list[2],test_list[3],35,35)
+                #drawEllipse(test_list[4],test_list[5],35,35)
+                #drawEllipse(test_list[6],test_list[7],35,35)
+                #drawEllipse(test_list[8],test_list[9],35,35)
+                #drawEllipse(test_list[10],test_list[11],35,35)
+
+                #drawLine(test_list[0],test_list[1],test_list[2],test_list[3]) #connect 1>
+                #drawLine(test_list[0],test_list[1],test_list[4],test_list[5]) #connect 1>
+                #drawLine(test_list[4],test_list[5],test_list[6],test_list[7]) #connect 3>
+                #drawLine(test_list[2],test_list[3],test_list[6],test_list[7]) #connect 2>
+
+            time.sleep(0.2)
+            i = i + 1
+
+        print("camera test2 done")
+
+
 
 if __name__ == "__main__":
     import sys
