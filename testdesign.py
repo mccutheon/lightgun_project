@@ -29,16 +29,17 @@ class MyWindow(QWidget):
     def test_camera(self):
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.update_display)
-        self.timer.start(30)  # 500 milliseconds (0.5 seconds) interval
+        self.timer.start(200)  # 500 milliseconds (0.5 seconds) interval
         self.timer_count = 0
 
     def update_display(self):
-        if self.timer_count >= 150:  # 10 iterations, 0.5 seconds each, total 5 seconds
+        if self.timer_count >= 25:  # 10 iterations, 0.5 seconds each, total 5 seconds
             self.timer.stop()
+            self.scene.clear()
             return
 
         #test_list = [random.randint(300, 600) for _ in range(12)]
-        test_list = [randint(250,350),300,randint(550,650),300,randint(250,350),600,randint(550,650),600,randint(400,450),400,randint(400,450),500]
+        test_list = [randint(250,350),randint(250,350),randint(550,650),randint(250,350),randint(250,350),randint(550,650),randint(550,650),randint(550,650),randint(400,450),randint(400,450),randint(400,450),randint(400,450)]
 
         # Clear previous items on the scene
         self.scene.clear()
