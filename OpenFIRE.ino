@@ -1,3 +1,5 @@
+
+
 /*
   Project Name: OpenFIRE Lightgun (V_1.0)
   Authors: Sam Ballantyne & Mike Lynch
@@ -113,7 +115,7 @@ unsigned long previousTime = 0;
 int rumblePin = 8;
 int rumbleDelay = 500;
 
-int solPin = 21;
+int solPin = 9;
 int solHighDelay = 70;
 int solLowDelay = 30;
 
@@ -130,6 +132,9 @@ void setup() {
   pinMode(leftPin, INPUT_PULLUP);
   pinMode(rightPin, INPUT_PULLUP);
   pinMode(middlePin, INPUT_PULLUP);
+
+  pinMode(rumblePin, OUTPUT);
+  pinMode(solPin, OUTPUT);
    
   MouseAbsolute.begin();
   // Start IR Camera with basic data format
@@ -164,6 +169,7 @@ void getPosition() {
 
     int error = dfrIRPos.basicAtomic(DFRobotIRPositionEx::Retry_2);
     if(error == DFRobotIRPositionEx::Error_Success) {
+      //Serial.println("get position loop");
       OpenFIREpos.begin(dfrIRPos.xPositions(), dfrIRPos.yPositions(), dfrIRPos.seen());
       OpenFIREper.warp(OpenFIREpos.X(0), OpenFIREpos.Y(0), OpenFIREpos.X(1), OpenFIREpos.Y(1), OpenFIREpos.X(2), OpenFIREpos.Y(2), OpenFIREpos.X(3), OpenFIREpos.Y(3), TLled, TRled, res_y);
       // Output mapped to screen resolution because offsets are measured in pixels
@@ -459,7 +465,7 @@ void processSerial () {
         Serial.println("solenoid");
         Serial.println("");
 
-        for(int i = 0; i<=4; i++) {
+        for(int i = 0; i<=2; i++) {
             digitalWrite(solPin,HIGH);
             delay(solHighDelay);
             digitalWrite(solPin,LOW);
